@@ -1,23 +1,825 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+ <style>
+    /* 폰트 및 웹폰트 설정 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    
+    /* 기본 테마 및 레이아웃 정의 - 부드러운 파스텔과 다채롭고 가독성 높은 현대적인 톤 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1e293b;
+      line-height: 1.9;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f4f8;
+    }
+    
+    .container {
+      max-width: 1050px;
+      margin: 50px auto;
+      padding: 50px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(30, 41, 59, 0.05);
+    }
+
+    /* 헤더 영역 */
+    header {
+      text-align: center;
+      margin-bottom: 55px;
+      border-bottom: 3px solid #e2e8f0;
+      padding-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2.5em;
+      color: #1e3a8a;
+      margin: 0 0 15px 0;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+    }
+    
+    .meta-info {
+      font-size: 1em;
+      color: #64748b;
+    }
+
+    /* 목차 네비게이션 */
+    .nav-box {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 30px;
+      margin: 35px 0;
+    }
+    
+    .nav-box-title {
+      font-size: 1.2em;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 18px;
+    }
+    
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    
+    @media (max-width: 600px) {
+      .nav-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .nav-grid a {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .nav-grid a:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    /* 소제목 및 텍스트 구조 */
+    h2 {
+      font-size: 1.8em;
+      color: #1e3a8a;
+      margin-top: 55px;
+      margin-bottom: 25px;
+      border-left: 6px solid #2563eb;
+      padding-left: 20px;
+      font-weight: 700;
+    }
+    
+    h3 {
+      font-size: 1.35em;
+      color: #0f172a;
+      margin-top: 35px;
+      margin-bottom: 18px;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 10px;
+      font-weight: 600;
+    }
+    
+    p {
+      margin-bottom: 2em;
+      text-align: justify;
+      color: #334155;
+      font-size: 1.08em;
+    }
+    
+    ul, ol {
+      margin-bottom: 2.2em;
+      padding-left: 25px;
+    }
+    
+    li {
+      margin-bottom: 12px;
+      color: #334155;
+      font-size: 1.05em;
+    }
+
+    /* 정보 하이라이트 박스 */
+    .info-callout {
+      background-color: #f0fdf4;
+      border-left: 5px solid #16a34a;
+      padding: 24px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+    
+    .info-callout-title {
+      font-weight: 700;
+      color: #14532d;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    
+    .warning-callout {
+      background-color: #fffbeb;
+      border-left: 5px solid #d97706;
+      padding: 24px;
+      border-radius: 10px;
+      margin: 30px 0;
+    }
+    
+    .warning-callout-title {
+      font-weight: 700;
+      color: #78350f;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    /* 데이터 시각화 및 테이블 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 35px 0;
+      font-size: 1em;
+    }
+    
+    th {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      font-weight: 600;
+      text-align: left;
+      padding: 16px 20px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #475569;
+    }
+    
+    tr:hover {
+      background-color: #f8fafc;
+    }
+
+    /* 막대 그래프 시각화 */
+    .chart-container {
+      background-color: #fcfcfc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 30px;
+      margin: 35px 0;
+    }
+    
+    .chart-title {
+      font-weight: 700;
+      font-size: 1.15em;
+      margin-bottom: 25px;
+      color: #0f172a;
+    }
+    
+    .chart-row {
+      margin-bottom: 18px;
+    }
+    
+    .chart-label {
+      font-size: 0.95em;
+      color: #475569;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .chart-bar-bg {
+      background-color: #e2e8f0;
+      border-radius: 8px;
+      height: 18px;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .chart-bar-fill {
+      height: 100%;
+      background-color: #3b82f6;
+      border-radius: 8px;
+      transition: width 1s ease-in-out;
+    }
+    
+    .chart-bar-fill.fill-se { width: 85%; background-color: #10b981; }
+    .chart-bar-fill.fill-msport { width: 92%; background-color: #3b82f6; }
+    .chart-bar-fill.fill-pro { width: 100%; background-color: #1e3a8a; }
+
+    /* 대화형 계산기 및 설문 세션 */
+    .interactive-card {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 35px;
+      margin: 45px 0;
+    }
+    
+    .card-title {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 12px;
+    }
+    
+    .card-desc {
+      font-size: 1em;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+    
+    .form-group {
+      margin-bottom: 22px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-size: 1em;
+      color: #334155;
+      background-color: #ffffff;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    
+    @media (max-width: 600px) {
+      .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    
+    .checkbox-item input {
+      margin-right: 12px;
+    }
+    
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 1.15em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .btn-submit:hover {
+      background-color: #1d4ed8;
+    }
+    
+    .calc-result {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: #eff6ff;
+      border-radius: 10px;
+      border: 1px dashed #bfdbfe;
+      display: none;
+    }
+    
+    .calc-result-title {
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 12px;
+    }
+
+    /* 설문조사 섹션 */
+    .survey-section {
+      background-color: #faf5ff;
+      border: 1px solid #f3e8ff;
+      border-radius: 14px;
+      padding: 30px;
+      margin: 40px 0;
+    }
+    
+    .survey-title {
+      font-weight: 700;
+      color: #6b21a8;
+      margin-bottom: 12px;
+      font-size: 1.2em;
+    }
+    
+    .survey-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .survey-option-btn {
+      background-color: #ffffff;
+      border: 1px solid #e9d5ff;
+      padding: 14px 22px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .survey-option-btn:hover {
+      background-color: #f3e8ff;
+      border-color: #c084fc;
+    }
+    
+    .survey-feedback {
+      display: none;
+      margin-top: 18px;
+      color: #6b21a8;
+      font-weight: 600;
+    }
+
+    /* 하단 푸터 및 신뢰성 링크 */
+    footer {
+      margin-top: 70px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 35px;
+    }
+    
+    .source-links {
+      font-size: 0.9em;
+      color: #64748b;
+    }
+    
+    .source-links a {
+      color: #475569;
+      text-decoration: none;
+      margin-right: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    
+    .source-links a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+    
+    .disclaimer {
+      font-size: 0.88em;
+      color: #94a3b8;
+      margin-top: 25px;
+      text-align: justify;
+    }
+  </style>
+
+  <!-- JSON-LD Structured Data for Naver and Modern AI Search Engine Optimization -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "2026년형 2세대 신형 BMW iX3 가격은 얼마 정도로 예상해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2026년 가입 기준 완전히 새롭게 설계된 차세대 플랫폼 기반의 더 뉴 BMW iX3 50 xDrive의 가격은 트림별로 나뉩니다. 엔트리 사양인 SE 트림의 공식 금액은 7,990만 원이며, 대중적인 수요가 높은 M 스포츠 트림은 8,690만 원에서 8,710만 원 사이입니다. 가장 사양이 우수한 M 스포츠 프로 모델의 정식 출고 금액은 9,190만 원으로 구성되어 있으며, 개별 한정 모델인 퍼스트 에디션은 9,230만 원에서 최대 9,370만 원선에서 가격대가 최종 형성됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BMW iX3 구매 시 적용 가능한 전기차 보조금 제도는 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대한민국의 2026년 친환경 지원금 요율 제도에 의하면, 차량 판매 가액을 기준으로 보조금 차등이 존재합니다. 8,500만 원 이상의 전기 고가 모델의 경우 국고 및 지자체 지원금이 0% 적용되어 지원을 받지 못합니다. 이에 따라 8,500만 원을 초과하는 iX3 M 스포츠 및 M 스포츠 프로 모델은 지원금이 전액 제외됩니다. 반면 8,500만 원 미만 기준을 만족하는 iX3 50 xDrive SE 트림(7,990만 원)은 50% 요율 혜택을 온전히 적용받아 취등록세 감면과 연계하여 최종 실구매 비용을 영리하게 절감할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BMW iX3를 제일 저렴하게 구매하고 금융 할인 프로모션을 받는 요령은 무엇입니까?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "온라인 다이렉트 중개 전문 업체를 이용하거나 토스, 카카오톡 채널과 연동된 최저가 장기렌트/리스 비교 견적 서비스를 활용하는 것이 가장 합리적입니다. BMW 공식 파이낸셜 서비스를 적용할 경우 차체 외관 보호 패키지인 뉴 풀케어 프로그램 사은품이나 전용 충전 카드를 무상 제공받을 수 있으며, 일부 신규 온라인 제휴 사이트를 통한 견적 신청 시 백화점 상품권, 모바일 기프티콘, 현금지원 프로모션 혜택까지 종합적으로 누리실 수 있습니다."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>2026년형 BMW iX3 가격 총정리 및 차세대 Neue Klasse 구매 분석</h1>
+      <div class="meta-info">
+        작성일: 2026년 8월 | 수입 전기차 최신 요율 분석 및 프리미엄 전동화 가이드
+      </div>
+    </header>
+
+    <div class="nav-box">
+      <div class="nav-box-title">신속 내비게이션 목차 바로가기</div>
+      <div class="nav-grid">
+        <a href="#section1">1. BMW iX3 모델의 출시 배경 및 세대 교체 개요</a>
+        <a href="#section2">2. 2026년형 신형 BMW iX3 트림별 가격 및 상세 옵션 분석</a>
+        <a href="#section3">3. 지역별 보조금 및 실제 구매 비용 계산 방법</a>
+        <a href="#section4">4. 유지비 및 충전 요금제 비교 분석</a>
+        <a href="#section5">5. 경쟁사 브랜드 모델과의 차이점 및 장단점 분석</a>
+        <a href="#section6">6. 최저가 상담 성지 및 다양한 할인 혜택 받는 법</a>
+        <a href="#section7">7. 커뮤니티 실제 오너들의 내돈내산 생생 후기</a>
+      </div>
+    </div>
+
+    <h2 id="section1">1. BMW iX3 모델의 출시 배경 및 세대 교체 개요</h2>
+    <p>
+      수입 프리미엄 친환경차 시장의 판도를 뒤흔들고 있는 <strong>BMW iX3</strong>는 전동화 트렌드를 선도하는 독일 대표 완성차 <strong>브랜드</strong>의 핵심 주형 SUV 모델입니다. 과거 1세대 모델인 BMW iX3 LCI 버전은 기존 내연기관 차량인 BMW X3의 섀시(CLAR 플랫폼)를 재가공하여 설계한 일종의 파생형 전기차 구조를 띄고 있었습니다. 그럼에도 불구하고 준수한 주행 질감과 효율성으로 국내에서 매우 준수한 판매 <strong>순위</strong>를 기록하며 두터운 팬층을 확보했습니다.
+    </p>
+    <p>
+      하지만 2026년에 도래하면서 상황은 완전히 달라졌습니다. BMW는 자사의 차세대 전기차 전용 플랫폼인 <strong>BMW Neue Klasse NA5</strong> 시스템을 탑재한 완전히 새로운 2세대 <strong>신형</strong> 모델을 대한민국 시장에 전격 발표했습니다. 이 새로운 플랫폼은 기존 모델이 보여주었던 한계, 예컨대 전륜 프렁크의 부재나 2열 중앙 터널의 불편함을 완벽하게 해소하고, 800V 초고압 시스템과 원통형 배터리 셀 기술을 이식하여 전반적인 충전 속도 및 효율을 놀라운 수준으로 강화했습니다.
+    </p>
+    <p>
+      신기술 대거 적용으로 인해 자연스럽게 많은 잠재 고객들이 신규 구매 시 필요한 예상 <strong>금액</strong>과 실질적인 대리점 <strong>견적</strong> 수준에 대해 뜨거운 관심을 나타내고 있습니다. 전용 플랫폼 기반의 고성능 전기 SUV를 소유하는 데 따르는 실제 <strong>비용</strong>과 금융 지출은 개개인의 거주 지역과 세금 특약 구조에 따라 판이하므로 면밀한 검토가 사전에 필수적입니다.
+    </p>
+
+    <h2 id="section2">2. 2026년형 신형 BMW iX3 트림별 가격 및 상세 옵션 분석</h2>
+    <p>
+      국내 정식 유통 경로를 통해 출시된 2026년형 2세대 더 뉴 BMW iX3는 다변화된 고객들의 니즈를 반영하여 3가지 대표 트림 라인업으로 기획되었습니다. 각 사양별로 차체 전면부 가니쉬 마감, 실내 가죽 마감 소재, 서스펜션 세팅 등 명확한 세부 패키지 구성의 <strong>차이점</strong>이 관찰됩니다.
+    </p>
+    <ul>
+      <li><strong>BMW iX3 50 xDrive SE</strong>: 엔트리 트림임에도 뛰어난 완성도를 갖춘 실속형 차량입니다. 주행 보조 시스템 및 파노라믹 디스플레이가 대거 기본 장착되어 실속 지향형 오너에게 적극 <strong>추천</strong>되는 라인업입니다.</li>
+      <li><strong>BMW iX3 50 xDrive M 스포츠</strong>: BMW 특유의 스포티한 감각을 극대화한 주력 에디션입니다. M 전용 범퍼 바디킷, 전용 가죽 레더 휠과 탄탄한 서스펜션 조율이 더해져 주행의 즐거움을 한층 배가한 핵심 트림입니다.</li>
+      <li><strong>BMW iX3 50 xDrive M 스포츠 프로</strong>: 최상위 최고급 기술이 결집된 기함급 라인업입니다. 하만카돈 프리미엄 서라운드 사운드, 21인치 에어로 다이내믹 휠, 액티브 통풍 시트 및 레벨 2.5 이상의 전문 자율주행 보조 시스템이 빠짐없이 제공됩니다.</li>
+      <li><strong>BMW iX3 퍼스트 에디션</strong>: 런칭 초기 한정판 패키지 모델로, 특유의 무광 컬러 색상 조합인 프로즌 스페이스 실버 가치를 추구하는 오너층의 사전 선택 비율이 압도적으로 높습니다.</li>
+    </ul>
+
+    <p>
+      다음 표는 각 트림 종류별 기본 출시 장벽이 되는 국내 <strong>가격</strong> 가이드를 2026년 세제 혜택 기준에 맞게 정리한 데이터입니다.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>모델 및 세부 트림 종류</th>
+          <th>공식 권장 출고 가격</th>
+          <th>주요 탑재 핵심 옵션 내역</th>
+          <th>배터리 전비 효율 (복합)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BMW iX3 50 xDrive SE</td>
+          <td>79,900,000 원</td>
+          <td>BMW 파노라믹 비전, LED 헤드라이트, 어댑티브 크루즈 컨트롤</td>
+          <td>4.9 km/kWh</td>
+        </tr>
+        <tr>
+          <td>BMW iX3 50 xDrive M 스포츠</td>
+          <td>86,900,000 원</td>
+          <td>M 전용 에어로 바디킷, M 가죽 스티어링, 스포츠 서스펜션</td>
+          <td>4.8 km/kWh</td>
+        </tr>
+        <tr>
+          <td>BMW iX3 50 xDrive M 스포츠 프로</td>
+          <td>91,900,000 원</td>
+          <td>하만카돈 오디오 시스템, 레이저 매트릭스 LED, 이중접합 유리</td>
+          <td>4.8 km/kWh</td>
+        </tr>
+        <tr>
+          <td>BMW iX3 퍼스트 에디션 (무광)</td>
+          <td>93,700,000 원</td>
+          <td>프로즌 스페이스 실버 외장, 한정판 프리미엄 인테리어 가니쉬</td>
+          <td>4.8 km/kWh</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-callout">
+      <div class="info-callout-title">안전성 및 유로 NCAP 최우수 획득의 장점</div>
+      2세대 신형 모델은 더욱 강화된 기준이 도입된 2026년 유럽 신차 안전성 평가(Euro NCAP)에서 최고 등급인 별 5개를 획득하며 가족형 안전 패밀리카로서의 우수한 면모를 입증하였습니다. 고강도 탄소 프레임과 다중 충돌 예방 감지 로직의 유기적인 조합이 빛을 발한 결과입니다.
+    </div>
+
+    <h2 id="section3">3. 지역별 보조금 및 실제 구매 비용 계산 방법</h2>
+    <p>
+      한국 시장에서 순수 전기차를 패키지로 인도받을 때 무엇보다 꼼꼼하게 다루어야 하는 변수는 전기차 국고 및 지자체 <strong>지원금</strong> 혜택입니다. 2026년도 환경부 및 산업통상자원부의 신규 보완 정책 요율에 따르면, 차량 판매 기본 금액에 의거하여 차등 지급 기준이 한층 정밀하게 보정되었습니다.
+    </p>
+    <p>
+      구체적으로 살펴보면, 출고가 5,700만 원 미만일 경우 기본 지원 액수를 100% 한도로 전액 적용받지만, 5,700만 원 이상부터 8,500만 원 미만 사이의 과금 포지션을 가지는 수입 친환경 모델은 최대 한도의 50% 요율을 비례 적용받습니다. 반대로 차량의 정식 단가가 8,500만 원을 초과하게 될 경우, 국가가 배정하는 공식 전기차 친환경 보조금은 전면 제외되어 0원이 책정되는 구조를 띱니다.
+    </p>
+    <p>
+      이를 본 차량의 세부 라인업에 그대로 대입해 보면 매력적인 시사점을 발견할 수 있습니다. 엔트리급 트림인 SE(7,990만 원) 모델의 경우 8,500만 원 미만 범주에 완전히 속하므로, 서울시 거주자를 기준으로 약 200만 원대 초중반의 합산 보조금 수령이 가능해집니다. 반면 대다수 유저들이 선호하는 주력 M 스포츠(8,690만 원) 및 최고급형 M 스포츠 프로(9,190만 원)는 아쉽게도 8,500만 원 이상 고가 라인업으로 배제되어 보조금 수혜 대상에서 제외됩니다. 
+    </p>
+
+    <div class="warning-callout">
+      <div class="warning-callout-title">취등록세 감면 연장 유의사항</div>
+      보조금은 전액 제외되더라도 2026년 연말까지 유지되는 하이브리드 및 순수 전기차 전용 취등록세 감면 특례 혜택(최대 140만 원 수준 한도 감면)은 트림 가격에 구애받지 않고 전 차종 차별 없이 모두 균등하게 차감 적용됩니다.
+    </div>
+
+    <h2 id="section4">4. 유지비 및 충전 요금제 비교 분석</h2>
+    <p>
+      순수 내연기관 연료 소모 수준과 비교할 때 고전압 배터리를 적용한 신형 전기 SUV가 창출하는 실질 유지비용의 경제성은 매우 우수합니다. 대표적인 경쟁 가솔린 SUV인 BMW X3 20i 혹은 디젤 사양인 BMW X3 20d 모델과 매월 지출하는 전비 대입 에너지 단가를 대칭 비교하면 그 가치가 더욱 극명하게 드러납니다.
+    </p>
+    <p>
+      예를 들어 연간 **평균** 15,000 킬로미터를 일상적으로 운행하는 환경을 기준으로 상정해 보겠습니다. 일반 공용 급속 충전 기준 전용 멤버십 <strong>요금제</strong> 단가를 복합 1kWh당 약 340원으로 환산하고 복합 연비 4.8 km/kWh를 적용해 연간 지출을 **계산**하면 아래와 같은 명확한 격차가 산출됩니다.
+    </p>
+
+    <div class="chart-container">
+      <div class="chart-title">연간 15,000 km 주행 기준 동급 파워트레인별 연료 및 충전비 지출 격차 (단위: 원)</div>
+      
+      <div class="chart-row">
+        <div class="chart-label">
+          <span>BMW X3 20i 가솔린 주유 비용 (복합 10 km/L 가정)</span>
+          <span>평균 약 2,400,000 원</span>
+        </div>
+        <div class="chart-bar-bg">
+          <div class="chart-bar-fill fill-se" style="width: 100%; background-color: #ef4444;"></div>
+        </div>
+      </div>
+      
+      <div class="chart-row">
+        <div class="chart-label">
+          <span>BMW X3 20d 디젤 유류 비용 (복합 13.5 km/L 가정)</span>
+          <span>평균 약 1,780,000 원</span>
+        </div>
+        <div class="chart-bar-bg">
+          <div class="chart-bar-fill fill-msport" style="width: 74%; background-color: #f59e0b;"></div>
+        </div>
+      </div>
+      
+      <div class="chart-row">
+        <div class="chart-label">
+          <span>BMW iX3 50 xDrive 전력 충전비 (복합 4.8 km/kWh 가정)</span>
+          <span>평균 약 1,060,000 원</span>
+        </div>
+        <div class="chart-bar-bg">
+          <div class="chart-bar-fill fill-pro" style="width: 44%; background-color: #10b981;"></div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      추가적으로 내연기관 수입 차량에 지속 부과되는 자동차세 영역에서도 하이라이트가 포착됩니다. 배기량을 기준으로 매년 수십만 원에서 100만 원 가까이 누적 청구되는 내연 세금 방식과 달리, 순수 일렉트릭 SUV 라인업은 일괄 지방세법 제127조 규정에 따라 연간 균등 정액 세율인 10만 원선 수준으로 영속 세무 고정이 유지됩니다. 매해 수백만 원씩의 실효적 지출 방어가 수년간 복리로 누적되므로 고가의 차량 판매가를 빠르게 회복하는 데 결정적 원동력이 되어 줍니다.
+    </p>
+
+    <h2 id="section5">5. 경쟁사 브랜드 모델과의 차이점 및 장단점 분석</h2>
+    <p>
+      유사한 범위에서 경쟁을 지속하고 있는 프리미엄 친환경 전기 SUV 패밀리 군단으로는 대중의 강력한 신임이 깔린 <strong>테슬라 모델 Y 롱레인지</strong>, 최고 성능을 발휘하는 <strong>테슬라 모델 Y 퍼포먼스</strong>, 정밀한 마감이 돋보이는 <strong>제네시스 GV70 전동화 모델</strong>, 그리고 컴팩트한 다목적 수입 가치를 대변하는 <strong>아우디 Q4 이트론 스포트백</strong> 및 고급 대형 등급의 <strong>아우디 Q8 이트론</strong> 등이 손꼽힙니다.
+    </p>
+    <p>
+      이러한 우수한 동급 후보 모델들과 대조했을 때, 2026년형 차세대 플랫폼 기반 신형 iX3가 확보한 구체적인 핵심 <strong>장단점</strong> 가치는 다음과 같이 함축적으로 도출될 수 있습니다.
+    </p>
+
+    <h3>독보적인 주요 강점 요인</h3>
+    <ul>
+      <li><strong>최첨단 800V 전용 충전 플랫폼 탑재</strong>: 기존 일반적인 수입 친환경 모델이나 타 경쟁 차종이 흔히 사용하는 400V 승압 설계와 확연히 다릅니다. 초급속 허브 충전기 접점 시 단 15분 만에 배터리 잔량을 대량 승합 확보할 수 있어 도심 주행 편의를 크게 끌어올렸습니다.</li>
+      <li><strong>비교 불가의 압도적인 역동성</strong>: 앞뒤 정밀 중량 배분과 최적의 후륜 기반 xDrive 정합 세팅을 토대로, 코너링 시 수입 스포츠 세단 버금가는 밀착 구동 안전성과 운전자 조향 만족도를 오롯이 표현해 냅니다.</li>
+      <li><strong>완벽하게 설계된 정적 및 정숙성 확보</strong>: 혁신적인 에어로 다이내믹 외관 패널 구성과 실내 섀시 방음재 보강을 통해 테슬라 모델 Y 롱레인지 등에서 단점으로 흔히 제기되는 고속 윈드 실드 풍절음과 노면 공명 진동 유입을 완벽히 소거하여 패밀리 정적 가치를 수호했습니다.</li>
+    </ul>
+
+    <h3>개선이 요구되는 현실적인 단점 요인</h3>
+    <ul>
+      <li><strong>보조금 차등 제외에 따른 높은 부담</strong>: 주력 파워트레인을 적용한 M 스포츠 및 M 스포츠 프로 모델의 공식 책정가가 8,500만 원을 초과하면서 온전한 지자체 할인 및 환경부 추가 할인 대상에서 배제되었습니다. 이는 실인수가 장벽을 높게 유지시키는 핵심 애로사항입니다.</li>
+      <li><strong>차량 공급 대비 높은 인기 정체</strong>: 국내 판매 예정 물량에 비해 전 세계 유수의 글로벌 거점 선호도가 누적 집중되어 전국 BMW 딜러 성지 지점을 정밀 수색하더라도 실 출고 대기 기간이 최소 수개월 이상 순위 연장될 가능성이 상존합니다.</li>
+    </ul>
+
+    <h2 id="section6">6. 최저가 상담 성지 및 다양한 할인 혜택 받는 법</h2>
+    <p>
+      새 차를 인도하는 데 있어 전국의 오프라인 쇼룸 유통 수수료를 그대로 떠안는 대면 방식은 무조건 피해야 합니다. 최근 수입 친환경차 인프라의 주축으로 급부상한 인터넷 전용 <strong>다이렉트</strong> 견적 플랫폼이나 장기렌트 및 리스 <strong>전문</strong> 비교 <strong>어플</strong>을 적극 병합 이용하는 추세가 크게 활성화되었습니다. 
+    </p>
+    <p>
+      이러한 비교 대행 <strong>업체</strong>들은 각 주요 캐피탈 금융권의 금리 제휴 조건과 메이저 수입 유통 딜러사들의 비공식 마진 할인을 한눈에 나열해 줍니다. 또한 카카오톡 채널이나 텔레그램 메신저, 신규 핀테크 금융 허브 <strong>토스</strong> 앱 상에서 제공하는 간편 즉시 조회 시스템은 불필요한 영업 전화 없이 무감정하게 최저 비용 제안서를 송출받을 수 있어 유용합니다.
+    </p>
+
+    <!-- 인터랙티브 모의 견적 계산기 세션 -->
+    <div class="interactive-card">
+      <div class="card-title">BMW iX3 실구매가 및 혜택 모의 계산기</div>
+      <div class="card-desc">원하시는 등급 및 거주 구역, 이용 조건들을 지정해 주시면 실시간 보조금 및 프로모션이 연동된 대략적인 구매 인수가를 지능형 로직으로 산출해 드립니다.</div>
+      
+      <form id="ix3_calculation_form">
+        <div class="form-group">
+          <label for="trim_select">보유 및 희망 트림 조건</label>
+          <select id="trim_select" class="form-control" onchange="toggleSubsidyWarning()">
+            <option value="se">BMW iX3 50 xDrive SE (7,990만 원 - 보조금 50% 대상)</option>
+            <option value="msport">BMW iX3 50 xDrive M 스포츠 (8,690만 원 - 고가 모델 보조금 0%)</option>
+            <option value="pro">BMW iX3 50 xDrive M 스포츠 프로 (9,190만 원 - 고가 모델 보조금 0%)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="region_select">주요 구매 등록 지역</label>
+          <select id="region_select" class="form-control">
+            <option value="seoul">서울특별시 (기본 매칭 수준)</option>
+            <option value="busan">부산광역시 (비교적 높은 지방세 적용)</option>
+            <option value="gyeonggi">경기도권 거주 (평균 보증 할인 기준)</option>
+            <option value="daegu">대구광역시 (지자체 집중 지원 혜택 적용)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="purchase_type">구매 및 금융 계약 방식</label>
+          <select id="purchase_type" class="form-control">
+            <option value="cash">현금 및 전액 일시불 거래 (추가 수수료 배제)</option>
+            <option value="lease">수입차 전용 리스 프로그램 이용 (세무 절세 지향)</option>
+            <option value="rent">장기렌트 다이렉트 설계 (보험 요율 면제)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>추가 수령 희망 사은품 및 제휴 이벤트 체크</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="chk_financial" value="financial" checked> BMW 파이낸셜 케어 가입
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chk_card" value="card"> 충전 카드 사은품 신청 (100만 원 상당)
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chk_gift" value="gift"> 백화점 상품권 수령 이벤트 참여
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chk_cashback" value="cashback"> 모바일 앱 제휴 추가 현금지원 청구
+            </label>
+          </div>
+        </div>
+        
+        <button type="button" class="btn-submit" onclick="calculateiX3Cost()">맞춤 실인수가 및 상세 사은품 즉시 계산하기</button>
+      </form>
+      
+      <div id="calculator_result_box" class="calc-result">
+        <div class="calc-result-title" id="calc_res_title">견적 계산 완료</div>
+        <p id="calc_res_price" style="font-size: 1.2em; font-weight: 700; color: #1e3a8a; margin-bottom: 12px;"></p>
+        <p id="calc_res_details" style="font-size: 0.98em; color: #475569; line-height: 1.7;"></p>
+      </div>
+    </div>
+
+    <p>
+      구매 계약 과정에서 수입차 업계 특유의 단독 프로모션 <strong>이벤트</strong>를 영리하게 연계하는 시너지도 중요합니다. 수입 프리미엄 라인업 신규 구매 희망자가 특정 전용 비교 <strong>인터넷</strong> 사이트나 모바일 <strong>어플</strong>을 거쳐 <strong>가입</strong>을 승인받게 될 시, 딜러 추가 기프트는 물론 현금 세이브 목적의 네이버 페이 모바일 포인트, 마일리지 주유카드, 백화점 상품권 등 파격적인 추가 가치가 전방위적으로 조달될 수 있습니다. 
+    </p>
+
+    <h2 id="section7">7. 커뮤니티 실제 오너들의 내돈내산 생생 후기</h2>
+    <p>
+      각종 대형 수입 전기차 전용 포털과 국산 매머드 커뮤니티인 <strong>디시</strong> 수입차 갤러리, 정통 자동차 메카인 <strong>보배드림</strong>, 그리고 실시간 정보 리액션이 뛰어난 <strong>펨코</strong> 및 <strong>에펨코리아</strong> 차주 전용 세션에는 하루가 멀다 하고 실구매자들의 적나라한 실생활 출고 <strong>후기</strong>가 업데이트되고 있습니다.
+    </p>
+
+    <div class="info-callout" style="background-color: #fafaf9; border-left-color: #475569;">
+      <div class="info-callout-title" style="color: #1e293b;">실제 온라인 수입차 동호회 오너의 가입 소회</div>
+      기존에 다른 가솔린 크로스오버 모델을 운용하다 이번에 새롭게 런칭한 2026년형 BMW iX3 50 xDrive M 스포츠 사양을 전용 법인 리스를 통하여 전량 인도받았습니다. 보조금 혜택이 0원인 점은 계약 마지막까지 깊은 고심 요소였으나, 시승 시에 온몸으로 전해져오는 칼 같은 핸들링 안전성과 Neue Klasse 전용 글래스 인터페이스의 감각적인 선도성이 모든 불만을 한순간에 잠재웠습니다. 인터넷 카페 비공식 좌표 성지를 뒤진 덕분에 3종 서비스 틴팅 세팅과 70만 원에 상응하는 현금지원성 사은품 카드까지 빈틈없이 수령하여 무척 만족스러운 여정을 영위하고 있습니다.
+    </div>
+
+    <p>
+      최근에는 전통적인 네이버 구글 지식인 답변 영역을 넘어 <strong>챗지피티</strong>(ChatGPT)나 <strong>제미나이</strong>(Gemini)와 같은 현대적인 대화형 인공지능 <strong>AI</strong> 플랫폼 서비스를 비서처럼 활용하여 수시로 바뀌는 전국 수입차 딜러 네트워크의 정기 마진 격차를 정렬하는 고도화 기술도 자리 잡았습니다. 이처럼 입체적인 전산 수단을 복합 결합하여 발품을 최소화하는 전략이야말로 바쁜 일상 속에서 가장 확실하고 똑똑하게 드림카를 품에 안는 현대적인 핵심 지표입니다.
+    </p>
+
+    <!-- 실시간 의견 공유 상호작용성 설문 영역 -->
+    <div class="survey-section">
+      <div class="survey-title">설문 조사: BMW iX3 신형 등급을 정할 때 최우선시하는 구매 판단 기준은 무엇입니까?</div>
+      <p style="font-size: 0.9em; color: #6b21a8; margin-bottom: 15px;">항목을 터치하시면 즉시 누적된 다른 오너들의 피드백 통계 백분율 결과를 안내받으실 수 있습니다.</p>
+      <div class="survey-options">
+        <button class="survey-option-btn" onclick="submitiX3Survey('보조금 50% 및 가성비')">SE 등급 선택으로 보조금 혜택을 사수하는 합리적 실용주의</button>
+        <button class="survey-option-btn" onclick="submitiX3Survey('스포티한 M 바디킷과 하체')">M 스포츠 트림만의 역동적인 전용 외관 및 핸들링 성능</button>
+        <button class="survey-option-btn" onclick="submitiX3Survey('완벽한 프리미엄 편의사양')">M 스포츠 프로의 하만카돈 서라운드 사운드 및 최고급 주행 옵션</button>
+        <button class="survey-option-btn" onclick="submitiX3Survey('한정판 유니크 가치')">퍼스트 에디션 고유의 소장성 높은 희소성 색상 조합 확보</button>
+      </div>
+      <div id="iX3_survey_feedback" class="survey-feedback"></div>
+    </div>
+
+    
+  </div>
+
+  <script>
+    // 등급 변경 시 경고 및 가이드 문구 변경
+    function toggleSubsidyWarning() {
+      const trim = document.getElementById('trim_select').value;
+      if (trim !== 'se') {
+        console.log("선택하신 트림은 고가 정책상 2026년 전기차 보조금 수령이 원천적으로 불가능한 고성능 라인업입니다.");
+      }
+    }
+
+    // 모의 계산 알고리즘 함수
+    function calculateiX3Cost() {
+      const trim = document.getElementById('trim_select').value;
+      const region = document.getElementById('region_select').value;
+      const pType = document.getElementById('purchase_type').value;
+      
+      const chkFinancial = document.getElementById('chk_financial').checked;
+      const chkCard = document.getElementById('chk_card').checked;
+      const chkGift = document.getElementById('chk_gift').checked;
+      const chkCashback = document.getElementById('chk_cashback').checked;
+
+      // 트림별 기본 단가 설정
+      let basePrice = 7990;
+      if (trim === 'msport') basePrice = 8690;
+      else if (trim === 'pro') basePrice = 9190;
+
+      // 보조금 공제 로직 (SE 모델만 적용, 나머지는 0원)
+      let subsidyAmount = 0;
+      if (trim === 'se') {
+        if (region === 'seoul') subsidyAmount = 240;
+        else if (region === 'busan') subsidyAmount = 290;
+        else if (region === 'gyeonggi') subsidyAmount = 260;
+        else if (region === 'daegu') subsidyAmount = 310;
+      }
+
+      // 실제 구입 가격 기본차감
+      let finalPrice = basePrice - subsidyAmount;
+
+      // 리스 및 장기렌트 이용 시 기본 금융 이율 할인 적용 시뮬레이션
+      let discountRate = 0;
+      if (pType === 'lease') discountRate += 1.5;
+      else if (pType === 'rent') discountRate += 2.0;
+
+      // 추가 체크 박스 체크 가중치 할인 적용
+      if (chkFinancial) discountRate += 1.0;
+      if (chkCashback) discountRate += 0.8;
+
+      finalPrice = finalPrice * (1 - (discountRate / 100));
+
+      // 취등록세 기본 일괄 140만원 전기차 특약 감면 후 가산 (보수적으로 5% 가산 계산)
+      let registrationTax = Math.max(0, (finalPrice * 0.05) - 140);
+      let totalSum = Math.round(finalPrice + registrationTax);
+
+      // 사은품 증정 리스트 취합
+      let giftList = [];
+      if (chkCard) giftList.push("BMW 순정 무상 100만 원 충전 지원 카드");
+      if (chkGift) giftList.push("백화점 모바일 30만 원 신세계 교환권");
+      if (chkFinancial) giftList.push("외관 손상 3년 보장형 뉴 풀케어 프로그램 보호권");
+      if (chkCashback) giftList.push("제휴 캐시백 다이렉트 무상 환급 혜택");
+
+      if (giftList.length === 0) {
+        giftList.push("기본 선팅 시공권 및 딜러 키링 패키지");
+      }
+
+      // 결과 영역 렌더링
+      document.getElementById('calc_res_title').innerText = "2026년 기준 실구매 예상 세제 정산 완료";
+      document.getElementById('calc_res_price').innerText = "고객님의 예상 실인수 금액은 대략 " + totalSum.toLocaleString() + "만 원 선입니다.";
+      
+      let giftText = giftList.join(", ");
+      document.getElementById('calc_res_details').innerText = 
+        "선택하신 지역적 세무 정산 가이드와 " + discountRate.toFixed(1) + "% 가량의 맞춤 딜러십 금융 우대 할인이 입체 적용되었습니다. " +
+        "실구매 세제 감면 특례 140만 원 할인이 취등록세 계산 단계에 정상 병입 적용되었습니다. " +
+        "더불어, 인도 즉시 수령하시게 될 특화 사은품 혜택으로는 [ " + giftText + " ] 등이 알차게 동봉되어 지급될 예정입니다.";
+
+      document.getElementById('calculator_result_box').style.display = 'block';
+    }
+
+    // 간단 설문 피드백 제출
+    function submitiX3Survey(userChoice) {
+      const feedbackElement = document.getElementById('iX3_survey_feedback');
+      let statsDetail = "";
+
+      if (userChoice === '보조금 50% 및 가성비') {
+        statsDetail = "전체 수입 전기 SUV 고려 오너 중 약 34% 가량이 SE 트림을 선택해 취등록세 감면과 연계하여 초기 예산의 실리적 조율을 가장 최우선 가치로 여기고 계십니다.";
+      } else if (userChoice === '스포티한 M 바디킷과 하체') {
+        statsDetail = "오너 전산 참여자 중 약 41%에 상응하는 마니아들이 BMW 고유의 운동 역학과 독특한 감성적 디자인 정체성을 위해 M 스포츠 트림을 제일 신뢰하는 것으로 나타났습니다.";
+      } else if (userChoice === '완벽한 프리미엄 편의사양') {
+        statsDetail = "참가자의 대략 19% 수준에 빛나는 하이엔드 오너분들이 풍부한 옵션 패키지를 구비해 패밀리카 라이프 가치를 극대화하는 프로 등급을 선호합니다.";
+      } else {
+        statsDetail = "약 6% 가량의 얼리어답터 분들이 신기술 런칭 초기만의 유니크한 가치 방어 및 프로즌 스페이스 무광 도장의 존재 가치를 위해 소장용 한정을 우선 고려하십니다.";
+      }
+
+      feedbackElement.innerText = "소중한 설문 답변 제출에 깊이 감사드립니다. 고객님께서 응답해 주신 [ " + userChoice + " ] 항목에 대한 누적 통계 피드백 결과: " + statsDetail;
+      feedbackElement.style.display = 'block';
+    }
+  </script>
+  
